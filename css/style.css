@@ -1,0 +1,157 @@
+body {
+    background-color: #fff;
+    font: 12px  sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a { text-decoration: none; }
+
+/******************************************
+Map
+******************************************/
+
+#map {
+    background-color: #080d12;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    
+
+  cursor:pointer;
+}
+
+
+
+/******************************************
+loading gif
+******************************************/
+
+.loading:after {
+    background: url(../img/ajax-loader.gif) no-repeat;
+    background-color: rgba(0,0,0,0.75);
+    color: #666;
+    content: "Cargando...";
+    font-size: 12px;
+    height: 16px;
+    left: 50%;
+    line-height: 16px;
+    margin-left: -40px;
+    margin-top: -8px;
+    position: absolute;
+    text-indent: 26px;
+    top: 50%;
+    width: 80px;
+}
+
+#map.loading:after {
+    background-color: rgba(0,0,0,0.75);
+    background-color: #333;
+    background-image: url(../img/ajax-loader-rev.gif);
+    background-position: 20px 50%;
+    border-radius: 10px;
+    color: #fff;
+    padding: 20px;
+    position: absolute;
+    z-index: 4;
+}
+
+
+
+.well .loading:after {
+    background-color: rgba(0,0,0,0.75);
+    background-color: #333;
+    background-image: url(../img/ajax-loader-rev.gif);
+    background-position: 20px 50%;
+    border-radius: 10px;
+    color: #fff;
+    padding: 5px;
+    position: relative;
+    display: block;
+     content: "";
+    z-index: 4;
+    top: 20px;
+    margin-left: -60px;
+}
+
+
+/**********************
+sidebar
+***********************/
+.sidebar {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    background: none repeat scroll 0 0 rgba(13, 13, 13, 0.898);
+    border-radius: 5px;
+    color: #fff;
+    float: left;
+    height: auto;
+    left: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 5px;
+    width: 300px;
+    z-index: 12;
+}
+
+
+
+
+.sidebar .content-search { text-align: center; width: 100%; }
+.sidebar .search input { height: 18px; margin-bottom: 0px; }
+
+
+.territorio{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    background: none repeat scroll 0 0 rgba(13, 13, 13, 0.898);
+    border-radius: 5px;
+    color: #fff;
+    float: left;
+    height: auto;
+    right: 10px;    
+    padding: 10px;
+    position: absolute;
+    top: 5px;
+    width: 300px;
+    z-index: 12;
+}
+
+
+
+
+
+
+
+.alert {
+    background-color: #FCF8E3;
+    border: 1px solid #FBEED5;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 2px;
+    margin-top: -10px;
+    padding: 3px 35px 3px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+
+
+
+.well { color: #333; margin-bottom: 5px; padding: 10px; }
+.cont_distrito { font-size: 15px; font-weight: bold; margin-left: 10px; }
+
+h4 { border-bottom: 2px solid #333; 
+    color: #FE0707; 
+line-height: 33px;}
+
+
+.img-circle{
+    height: 40px;
+    width: 40px;
+}
+
+.po{
+    display: none;
+    border-bottom: 1px solid #eee; 
+    line-height: 40px;
+}
