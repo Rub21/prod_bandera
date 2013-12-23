@@ -9,8 +9,7 @@ map.addLayer(mapbox.layer().id('ruben.map-u6za9qld', function() {
   map.interaction.off('on');
   map.interaction.off('off');
   map.interaction.on({
-    on: function(o) {
-      console.log(o);
+    on: function(o) {    
 
       document.getElementById('distrito').innerHTML = o.data.DISTRITO;
       document.getElementById('distrito2').innerHTML = o.data.DISTRITO;
