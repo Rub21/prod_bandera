@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-1.8.0.js"></script>
+  <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js'></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+  <link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css' rel='stylesheet' />
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet"></head>
+<body>
+  <style>
+body { margin:0; 
+  padding:0;
+  background-color: #1C1C1C; }
+#map { position:absolute; 
+  top:42px; 
+  bottom:0; 
+  left: 0; 
+  right:100px;
+background-color: #1C1C1C;}
+#count {
+  position:absolute;
+  right:0px;
+  width:100px;
+  top:0px;
+  bottom:0px;
+  font-size:40px;
+  z-index:99;
+  color:#fff;
+  padding:10px;
+  background:#000;
+}
+
+
+#count {
+  position:absolute;
+  right:3px;
+  width:250px;
+  top:42px;
+  height: 300px;
+  font-size:14px;
+  z-index:99;
+  color:#fff;
+  padding:10px;
+  background:#000;
+}
+
+.navbar{
+  z-index: 9999;
+}
+
+.zoomer {
+  background-color:#888;
+  border-color:#202020;
+  }
+.zoomer:hover {
+    background-color:#666;
+}
+
+
+</style>
+
+  <div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <div class="title">
+        <a class="brand" href="#">Mapping, Heritage in OpenStreetMap.</a>
+      </div>
+      <div class="container controls">
+        <div class="nav-collapse">
+          <ul class="nav">
+
+            <li>
+              <a href="#" id="josm"   data-toggle="modal">Dowland in JOSM</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id='map'></div>
+  <div id='count'>
+    <div class="row">
+      <div class="span3">
+        <p>
+          Name :
+          <span id="name"></span>
+        </p>
+        <p>
+          Country:
+          <span id="country"></span>
+        </p>
+        <p>
+          Province:
+          <span id="province"></span>
+        </p>
+        <p>
+          Date of Inscription:
+          <span id="dateofinscription"></span>
+        </p>
+        <p>
+          Criterian:
+          <span id="criteria"></span>
+        </p>
+        <p>
+          <a  id="url"></a>
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+var map = mapbox.map('map');
+map.zoom(3).center({
+  lat: 15.54,
+  lon: -4.26
+});
+map.addLayer(mapbox.layer().id('ruben.map-f4awz1ff', function() {
+  map.interaction.auto();
+  map.interaction.off('on');
+  map.interaction.off('off');
+  map.interaction.on({
+    on: function(o) {
+      console.log(o);
+      document.getElementById('name').innerHTML = o.data.name;
+      document.getElementById('country').innerHTML = o.data.country;
+      document.getElementById('province').innerHTML = o.data.province;
+      document.getElementById('criteria').innerHTML = o.data.criteria;
+      document.getElementById('dateofinscription').innerHTML = o.data.dateofinscription;
+      document.getElementById('url').innerHTML = o.data.url;
+      document.getElementById('url').href = o.data.url;
+      /* a.setAttribute("href",url);
+           a.href = "somelink url"*/
+    }
+  });
+}));
+
+// Attribute map
+map.ui.attribution.add()
+  .content('<a href="http://mapbox.com/about/maps">Terms &amp; Feedback</a>');
+
+map.setZoomRange(2, 15);
+map.ui.hash.add();
+map.ui.zoomer.add();
+map.ui.zoombox.add();
+
+$(document).ready(function() {
+  $('#josm').click(function(e) {
+    openIn('j');
+
+  });
+});
+
+
+function openIn(editor) {
+  if (map.getZoom() < 14) {
+    alert("zoom in a little so we don't have to load a huge area from the API.");
+    return false;
+  };
+  var mapzoom = map.getZoom();
+  var locations = (map.getExtent() + '').split(',');
+  if (editor == 'j') {
+    var JOSMurl = "http://127.0.0.1:8111/load_and_zoom?left=" + locations[1] + "&right=" + locations[3] + "&top=" + locations[0] + "&bottom=" + locations[2];
+    $.ajax({
+      url: JOSMurl,
+      complete: function(t) {
+        if (t.status != 200) {
+          msg("JOSM remote control did not respond (" + t.status + "). Do you have JOSM running?", 2);
+        } else {
+          setTimeout("j", 4000);
+        }
+        marcar(locations);
+      }
+    });
+  } else if (editor == 'p') {
+    var PotlatchURL = 'http://www.openstreetmap.org/edit?editor=potlatch2&bbox=' + locations[1] + ',' + locations[2] + ',' + locations[3] + ',' + locations[0];
+    window.open(PotlatchURL);
+    setTimeout("p", 4000)
+  } else if (editor == 'i') {
+    var ideditorURL = 'http://geowiki.com/iD/#layer=Bing&map=' + mapzoom + '/' + (parseFloat(locations[2]) + parseFloat(locations[0])) / 2 + '/' + (parseFloat(locations[1]) + parseFloat(locations[3])) / 2;
+    window.open(ideditorURL);
+    setTimeout("i", 4000)
+  }
+
+};
+</script></body>
+</html>

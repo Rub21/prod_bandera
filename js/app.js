@@ -1,1 +1,148 @@
-eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('6 0=l.0(\'0\');0.1v(9).1s({1p:-13.1o,1n:-1l.1j});0.1f(l.1c().19(\'18.0-17\',f(){0.8.16();0.8.t(\'m\');0.8.t(\'t\');0.8.m({m:f(o){3.4(\'14\').5=o.2.A;3.4(\'11\').5=o.2.A;3.4(\'Y\').5=o.2.X;3.4(\'W\').5=o.2.T;3.4(\'S\').5=o.2.R;3.4(\'H\').5=o.2.1i;3.4(\'I\').5=o.2.J;3.4(\'K\').5=o.2.L;3.4(\'M\').5=o.2.N;3.4(\'O\').5=o.2.Q;$(\'.F\').E(\'D\',\'U\');V(6 i=1;i<=10;i++){6 a="Z"+i;6 b="P"+i;6 c="15"+i;6 d="p"+i;6 e="F"+i;n(y(o.2[a])){$(\'#\'+e).E(\'D\',\'1a\');3.4(c).5=o.2[a];3.4(d).1b="q://1d.1e.w/u/1g/1h/"+o.2[b]+".G"}r n(i==10){}r{1k}};f y(k){n(k.1m(/\\s/g,"")+v.C(B)!=v.C(B)){z 1q}r{z 1r}}}})}));0.h.1t.j().1u(\'<a x="q://1w.1x.1y">1z 1A 1B</a><a x="q://l.w/1C/1D">1E &1F; 1G</a>\');0.1H(7,12);0.h.1I.j();0.h.1J.j();0.h.1K.j();$(3).1L(f(){$(\'#0\').1M("1N")});',62,112,'map||data|document|getElementById|innerHTML|var||interaction|||||||function||ui||add||mapbox|on|if|||http|else||off||String|com|href|check_null|return|DISTRITO|160|fromCharCode|display|css|po|png|p_femenina|p_masculina|P_MASCULIN|pae_ocupad|PEA_OCUPAD|sup_territ|SUP_TERRIT|sup_agrico||SUP_AGRICO|P_TOTAL|p_total|CLIMA|none|for|clima|ACT_PRINCI|act_princ|PROD||distrito2|||distrito|prod|auto|u6za9qld|ruben|id|block|src|layer|dl|dropbox|addLayer|43116811|regionproducto|P_FEMENINA|298|break|74|replace|lon|893|lat|true|false|center|attribution|content|zoom|rub21|github|io|Contactar|con|Rub21|about|maps|Terms|amp|Feedback|setZoomRange|hash|zoomer|zoombox|ready|removeClass|loading'.split('|'),0,{}))
+var map = mapbox.map('map');
+map.zoom(9).center({
+  lat: -13.893,
+  lon: -74.298
+});
+
+
+
+map.addLayer(mapbox.layer().id('ruben.map-u6za9qld', function() {
+  map.interaction.auto();
+  map.interaction.off('on');
+  map.interaction.off('off');
+  map.interaction.on({
+    on: function(o) {
+      console.log(o);
+
+      document.getElementById('distrito').innerHTML = o.data.DISTRITO;
+      document.getElementById('distrito2').innerHTML = o.data.DISTRITO;
+      document.getElementById('act_princ').innerHTML = o.data.ACT_PRINCI;
+      document.getElementById('clima').innerHTML = o.data.CLIMA;
+
+
+      document.getElementById('p_total').innerHTML = o.data.P_TOTAL;
+      document.getElementById('p_femenina').innerHTML = o.data.P_FEMENINA;
+      document.getElementById('p_masculina').innerHTML = o.data.P_MASCULIN;
+      document.getElementById('pae_ocupad').innerHTML = o.data.PEA_OCUPAD;
+
+      document.getElementById('sup_territ').innerHTML = o.data.SUP_TERRIT;
+      document.getElementById('sup_agrico').innerHTML = o.data.SUP_AGRICO;
+
+
+      $('#loading_prod').addClass("loading");
+      window.setTimeout(function() {
+        $('#loading_prod').removeClass("loading");
+      }, 500);
+
+
+      $('.po').css('display','none');
+
+      for (var i = 1; i <= 10; i++) {
+
+
+        var prod = "PROD" + i;
+        var prod_img = "P" + i;
+
+        var prod_div = "prod" + i;
+        var prod_div_img = "p" + i;
+        var id_div="po"+i;
+
+        console.log(prod)
+
+        if (check_null(o.data[prod])) {
+
+          $('#'+id_div).css('display','block');
+          document.getElementById(prod_div).innerHTML = o.data[prod];
+          document.getElementById(prod_div_img).src = "http://dl.dropbox.com/u/43116811/regionproducto/" + o.data[prod_img] + ".png";
+
+        } else if (i == 10) {
+
+        } else {
+
+          console.log("no producto");
+          break;
+        }
+
+
+
+      };
+
+
+
+      function check_null(k) {
+        if (k.replace(/\s/g, "") + String.fromCharCode(160) != String.fromCharCode(160)) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+
+
+      /* document.getElementById('country').innerHTML = o.data.country;
+      document.getElementById('province').innerHTML = o.data.province;
+      document.getElementById('criteria').innerHTML = o.data.criteria;
+      document.getElementById('dateofinscription').innerHTML = o.data.dateofinscription;
+      document.getElementById('url').innerHTML = o.data.url;
+      document.getElementById('url').href = o.data.url;*/
+
+      /* a.setAttribute("href",url);
+           a.href = "somelink url"*/
+
+      /*
+
+ACT_PRINCI: "Agropecuario"
+CLIMA: "Trunda seca"
+DISTRITO: "Paras"
+P1: "mai"
+P2: "pap"
+P3: "vac"
+P4: "alp"
+P5: ""
+P6: ""
+P7: ""
+P8: ""
+P9: ""
+P10: ""
+PEA_OCUPAD: 0
+PROD1: "Maíz amiláceo"
+PROD2: "Papa"
+PROD3: "Ganado vacuno"
+PROD4: "Alpacas y Llamas"
+PROD5: ""
+PROD6: ""
+PROD7: ""
+PROD8: ""
+PROD9: ""
+PROD10: ""
+P_FEMENINA: 3890
+P_MASCULIN: 1127
+P_TOTAL: 5017
+SUP_AGRICO: 1255
+SUP_TERRIT: 791.01
+
+
+           */
+    }
+  });
+}));
+
+// Attribute map
+map.ui.attribution.add()
+  .content('<a href="http://mapbox.com/about/maps">Terms &amp; Feedback</a>');
+
+map.setZoomRange(7, 12);
+map.ui.hash.add();
+map.ui.zoomer.add();
+map.ui.zoombox.add();
+
+
+      $(document).ready(function(){
+
+
+              $('#map').removeClass("loading");
+
+      });
+
+
+
+
